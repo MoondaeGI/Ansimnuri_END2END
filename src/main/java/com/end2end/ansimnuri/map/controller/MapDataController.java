@@ -137,7 +137,7 @@ public class MapDataController {
         //policeService.insert();
         //streetLightService.insert();
         //cctvService.insert();
-        sexOffenderService.insert();
-        //riskRateService.insertAll();
+        //sexOffenderService.insert();
+            riskRateService.insertAll();
     }
 }

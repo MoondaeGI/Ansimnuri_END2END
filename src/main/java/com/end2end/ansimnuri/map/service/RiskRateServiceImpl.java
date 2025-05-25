@@ -68,7 +68,7 @@ public class RiskRateServiceImpl implements RiskRateService {
         double dLat = 200.0 / 110574.0;
 
         List<RiskRate> batch = new ArrayList<>();
-        final int BATCH_SIZE = 100;
+        final int BATCH_SIZE = 500;
 
         List<Police> policeList = policeRepository.findAllByOrderByLatitudeAscLongitudeAsc();
         List<SexOffender> sexOffenderList = sexOffenderRepository.findAllByOrderByLatitudeAscLongitudeAsc();
@@ -168,6 +168,7 @@ public class RiskRateServiceImpl implements RiskRateService {
                     riskRateRepository.saveAll(batch);
                     riskRateRepository.flush();
                     batch.clear();
+                    break;
                 }
             }
         }
@@ -201,10 +202,10 @@ public class RiskRateServiceImpl implements RiskRateService {
                 (1 - lightScore) * 0.35 +
                 offenderScore * 0.2;
 
-        if (totalScore >= 0.8) return 5;         // 매우 위험
-        else if (totalScore >= 0.6) return 4;    // 위험
-        else if (totalScore >= 0.4) return 3;    // 보통
-        else if (totalScore >= 0.2) return 2;    // 안전
+        if (totalScore >= 0.52) return 5;         // 매우 위험
+        else if (totalScore >= 0.49) return 4;    // 위험
+        else if (totalScore >= 0.47) return 3;    // 보통
+        else if (totalScore >= 0.45) return 2;    // 안전
         else return 1;                           // 매우 안전
     }
 }
